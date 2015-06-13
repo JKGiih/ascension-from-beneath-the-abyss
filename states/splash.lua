@@ -5,6 +5,7 @@ function splash.initialize()
    playerHeight = 4
    playerX = screenWidth / 2 - playerWidth / 2
    playerY = 0
+   health = 255
    depth = 0
    alpha = 1
 end
@@ -19,15 +20,18 @@ end
 
 function splash.draw()
    game.draw()
-   love.graphics.setFont(font1)
-   love.graphics.setColor(64, 64, 64, alpha)
-   love.graphics.print("Ascension", (widescreenOffset + 6) * scale, 5 * scale)
-   love.graphics.setFont(font2)
-   love.graphics.setColor(128, 128, 128, alpha)
-   love.graphics.print("from Beneath", (widescreenOffset + 2) * scale, 18 * scale)
-   love.graphics.setFont(font1)
-   love.graphics.setColor(192, 192, 192, alpha)
-   love.graphics.print("the Abyss", (widescreenOffset + 6) * scale, 27 * scale)
+   local setFont = love.graphics.setFont
+   local setColor = love.graphics.setColor
+   local print = love.graphics.print
+   setFont(font1)
+   setColor(64, 64, 64, alpha)
+   print("Ascension", (widescreenOffset + 10) * scale, 5 * scale)
+   setFont(font2)
+   setColor(128, 128, 128, alpha)
+   print("from Beneath", (widescreenOffset + 6) * scale, 18 * scale)
+   setFont(font1)
+   setColor(192, 192, 192, alpha)
+   print("the Abyss", (widescreenOffset + 10) * scale, 27 * scale)
 end
 
 function splash.gamepadpressed(joystick, button)

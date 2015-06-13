@@ -1,5 +1,6 @@
 require('states/game')
 require('states/gameover')
+require('states/gamewon')
 require('states/splash')
 require('interface/gamepad')
 require('interface/graphics')
@@ -23,6 +24,8 @@ function love.update(dt)
       game.update(dt)
    elseif state == "gameover" then
       gameover.update(dt)
+   elseif state == "gamewon" then
+      gamewon.update(dt)
    end
 end
 
@@ -33,6 +36,8 @@ function love.draw()
       game.draw()
    elseif state == "gameover" then
       gameover.draw()
+   elseif state == "gamewon" then
+      gamewon.draw()
    end
    local currentTime = love.timer.getTime()
    if nextTime <= currentTime then nextTime = currentTime return end
@@ -46,6 +51,8 @@ function love.gamepadpressed(joystick, button)
       game.gamepadpressed(joystick, button)
    elseif state == "gameover" then
       gameover.gamepadpressed(joystick, button)
+   elseif state == "gamewon" then
+      gamewon.gamepadpressed(joystick, button)
    end
 end
 
@@ -62,6 +69,8 @@ function love.keypressed(key)
       game.keypressed(key)
    elseif state == "gameover" then
       gameover.keypressed(key)
+   elseif state == "gamewon" then
+      gamewon.gamepadpressed(key)
    end
 end
 

@@ -41,11 +41,20 @@ function game.update(dt)
    if playerX > screenWidth - playerWidth - 2 then
       playerX = screenWidth - playerWidth - 2
    end
-   if playerY < 1 then playerY = 1 end
+   if playerY < 1 then
+      playerY = 1
+      gamewon.initialize()
+      state = "gamewon"
+   end
    if playerY > screenHeight - playerHeight then
       playerY = screenHeight - playerHeight
    end
    depth = 255 - 5 * playerY^1.45
+   if health <= 0 then
+      health = 0
+      gameover.initialize()
+      state = "gameover"
+   end
 end
 
 function game.draw()
@@ -68,7 +77,9 @@ function game.draw()
          end ]]--
          if c > 250 then c = 250 elseif c < 0 then c = 0 end
          c = c + random(5)
-         setColor(c, c, c, alpha)
+         r = c + (255 - health)
+         if r > 255 then r = 255 end
+         setColor(r, c, c, alpha)
          rectangle("fill", (i - 1 + widescreenOffset) * scale, (j -1) * scale, scale, scale)
       end
    end
