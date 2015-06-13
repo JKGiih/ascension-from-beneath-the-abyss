@@ -1,8 +1,10 @@
-This game is developed by HorseSoft and licensed under the GNU General Public License, Version 3.
+This game is developed by HorseSoft and licensed under
+the GNU General Public License, Version 3.
 
 The LÖVE framework is licensed under the ZLIB license.
 
-The font EBGaramond by Georg Duffner (http://www.georgduffner.at) is licensed under the SIL Open Font License, Version 1.1.
+The font EBGaramond by Georg Duffner (http://www.georgduffner.at)
+is licensed under the SIL Open Font License, Version 1.1.
 
 These licenses are reproduced below.
 
@@ -688,13 +690,21 @@ ZLIB LICENSE
 
 Copyright © 2006-2012 LÖVE Development Team
 
-This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from
+the use of this software.
 
-Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
 
-The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+The origin of this software must not be misrepresented; you must not claim
+that you wrote the original software. If you use this software in a
+product, an acknowledgment in the product documentation would be
+appreciated but is not required.
 
-Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+Altered source versions must be plainly marked as such, and must not be
+misrepresented as being the original software.
 
 This notice may not be removed or altered from any source distribution. 
 
