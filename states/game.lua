@@ -2,12 +2,14 @@ game = {}
 
 function game.initialize()
    player.initialize()
+   enemy.initialize()
    paused = false
    alpha = 255
 end
 
 function game.update(dt)
    player.update(dt)
+   enemy.update(dt)
 end
 
 function game.draw()
@@ -36,6 +38,7 @@ function game.draw()
          rectangle("fill", (i - 1 + widescreenOffset) * scale, (j -1) * scale, scale, scale)
       end
    end
+   enemy.draw()
 end
 
 function game.gamepadpressed(joystick, button)
