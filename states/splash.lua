@@ -1,18 +1,14 @@
 splash = {}
 
 function splash.initialize()
-   playerWidth = 2
-   playerHeight = 4
-   playerX = screenWidth / 2 - playerWidth / 2
-   playerY = 0
+   player.initialize()
    health = 255
    depth = 0
    alpha = 1
 end
 
 function splash.update(dt)
-   playerY = playerY + dt
-   if playerY > screenHeight then playerY = screenHeight end
+   player.update(dt)
    depth = 255 - 5 * playerY^1.45
    alpha = alpha + dt * (dt + 6)
    if alpha > 255 then alpha = 255 end

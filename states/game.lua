@@ -1,60 +1,13 @@
 game = {}
 
 function game.initialize()
-   playerX = screenWidth / 2 - playerWidth / 2
-   playerY = screenHeight - playerHeight
+   player.initialize()
    paused = false
    alpha = 255
 end
 
 function game.update(dt)
-   local isDown = love.keyboard.isDown
-   local horizontalDirection = nil
-   local verticalDirection = nil
-   if table.getn(gamepads) >= 1 then
-      for i = 1, table.getn(gamepads) do
-         if gamepads[i]:isGamepadDown("dpleft") then
-            horizontalDirection = "left"
-         elseif gamepads[i]:isGamepadDown("dpright") then
-            horizontalDirection = "right"
-         end
-         if gamepads[i]:isGamepadDown("dpup") then
-            verticalDirection = "up"
-         elseif gamepads[i]:isGamepadDown("dpdown") then
-            verticalDirection = "down"
-         end
-      end
-   end
-   if isDown("left") or isDown("a") or horizontalDirection == "left" then
-      playerX = playerX - dt * 1
-   end
-   if isDown("right") or isDown("d") or horizontalDirection == "right" then
-      playerX = playerX + dt * 1
-   end
-   if isDown("up") or isDown("w") or verticalDirection == "up" then
-      playerY = playerY - dt * (playerY / screenHeight)^2
-   end
-   if isDown("down") or isDown("s") or verticalDirection == "down" then
-      playerY = playerY + dt
-   end
-   if playerX < 2 then playerX = 2 end
-   if playerX > screenWidth - playerWidth - 2 then
-      playerX = screenWidth - playerWidth - 2
-   end
-   if playerY < 1 then
-      playerY = 1
-      gamewon.initialize()
-      state = "gamewon"
-   end
-   if playerY > screenHeight - playerHeight then
-      playerY = screenHeight - playerHeight
-   end
-   depth = 255 - 5 * playerY^1.45
-   if health <= 0 then
-      health = 0
-      gameover.initialize()
-      state = "gameover"
-   end
+   player.update(dt)
 end
 
 function game.draw()
