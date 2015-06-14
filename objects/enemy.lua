@@ -4,7 +4,7 @@ function enemy.initialize()
    enemies = {}
    enemyWidth = 6
    enemyHeight = 6
-   spawnCounter = 10
+   spawnCounter = screenHeight
 end    
 
 function enemy.move(dt)
@@ -40,7 +40,7 @@ function enemy.spawn(dt)
    end
    table.insert(enemies, {enemyX, enemyY, enemyHealth, enemyMoveSound, enemyDieSound})
    if soundAvailable and soundOn then audio.playEffect(enemies[table.getn(enemies)][4]) end
-   spawnCounter = 10
+   spawnCounter = playerY
 end
 
 function enemy.clear()
@@ -111,10 +111,19 @@ function enemy.draw()
    local screenHeight = screenHeight
    local canvasScale = canvasScale
    local widescreenOffset = widescreenOffset
+   local random = love.math.random
    local rectangle = love.graphics.rectangle
    local setColor = love.graphics.setColor
-   for i = 1, table.getn(enemies) do
-      setColor(enemies[i][3], 0, 0, 255)
-      rectangle("fill", (lockToGrid(enemies[i][1]) + widescreenOffset) * scale, lockToGrid(enemies[i][2]) * scale, scale, scale)
+   local a = random(32) + 16
+   for n = 1, table.getn(enemies) do
+      for i = 1, enemyWidth do
+         for j = 1, enemyHeight do
+            local c = random(25)
+            local offsetX = random(9) - 5
+            local offsetY = random(13) - 7
+            setColor(enemies[n][3], c, c, a)
+            rectangle("fill", (lockToGrid(enemies[n][1]) + i - 1 + offsetX+ widescreenOffset) * scale, (lockToGrid(enemies[n][2]) + j - 1 + offsetY) * scale, scale, scale)
+         end
+      end 
    end
 end

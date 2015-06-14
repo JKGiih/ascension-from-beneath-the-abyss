@@ -12,6 +12,11 @@ function player.initialize()
    end
 end    
 
+function player.incrementMuchHealth(dt)
+   playerHealth = playerHealth + dt * 30 + love.math.random(10)
+   if playerHealth > 255 then playerHealth = 255 end
+end
+
 function player.incrementHealth(dt)
    playerHealth = playerHealth + dt * 10
    if playerHealth > 255 then playerHealth = 255 end
@@ -55,7 +60,7 @@ function player.update(dt)
       end
       if isDown("down") or isDown("s") or verticalDirection == "down" then
          playerY = playerY + dt
-         player.incrementHealth(dt)
+         player.incrementMuchHealth(dt)
          for i = 1, table.getn(enemies) do
             enemy.decrementHealth(i, dt)
          end

@@ -25,11 +25,6 @@ function game.draw()
          else
             c = c + ((64 - i)^2 / j) / (64 / 48)
          end
-         --[[if i > playerX then
-         c = c + i - playerX
-         else
-         c = c + playerX - i
-         end ]]--
          if c > 250 then c = 250 elseif c < 0 then c = 0 end
          c = c + random(5)
          r = c + (255 - playerHealth)
