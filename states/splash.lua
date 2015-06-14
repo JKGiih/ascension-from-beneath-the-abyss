@@ -38,10 +38,12 @@ function splash.gamepadpressed(joystick, button)
 end
 
 function splash.keypressed(key)
-   if key == "return" or key == " " or key == "escape" then
+   if key == "return" or key == " " then
       game.initialize()
       state = "game"
    elseif key == "f11" then
       graphics.toggleFullscreen()
+   elseif key == "escape" then
+      love.event.quit()
    end
 end

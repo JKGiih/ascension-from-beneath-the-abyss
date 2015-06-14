@@ -45,10 +45,11 @@ function enemy.spawn(dt)
 end
 
 function enemy.silence()
-   for i = 1, table.getn(enemies) do
-      audio.stopEffect(enemies[i][4])
-      enemies[i][4] = nil
-      enemies[i][5] = nil
+   if soundAvailable and soundOn then
+      for i = 1, table.getn(enemies) do
+         audio.stopEffect(enemies[i][4])
+         audio.playEffect(enemies[i][5])
+      end
    end
 end
 

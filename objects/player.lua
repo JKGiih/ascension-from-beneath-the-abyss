@@ -69,8 +69,8 @@ function player.update(dt)
       if playerX > screenWidth - playerWidth - 2 then
          playerX = screenWidth - playerWidth - 2
       end
-      if playerY < 1 then
-         playerY = 1
+      if playerY < 2 then
+         playerY = 2
          gamewon.initialize()
          state = "gamewon"
       end
@@ -80,6 +80,9 @@ function player.update(dt)
       depth = 255 - 5 * playerY^1.45
       if playerHealth <= 0 then
          playerHealth = 0
+         if soundAvailable and soundOn then
+            audio.playEffect(sf2)
+         end
          gameover.initialize()
          state = "gameover"
       end 
