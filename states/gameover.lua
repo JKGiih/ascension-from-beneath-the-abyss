@@ -2,7 +2,7 @@ gameover = {}
 
 function gameover.initialize()
    if soundAvailable then
-      -- stop any looping sound effects
+      audio.stopEffect(sf1)
    end
    alpha2 = 1
 end
@@ -30,6 +30,7 @@ end
 
 function gameover.gamepadpressed(joystick, button)
    if button == "a" or button == "start" or button == "back" then
+      enemy.silence()
       splash.initialize()
       state = "splash"
    end
@@ -37,6 +38,7 @@ end
 
 function gameover.keypressed(key)
    if key == "return" or key == " " or key == "escape" then
+      enemy.silence()
       splash.initialize()
       state = "splash"
    elseif key == "f11" then

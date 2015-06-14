@@ -1,6 +1,7 @@
 enemy = {}
 
 function enemy.initialize()
+   enemies = nil
    enemies = {}
    enemyWidth = 6
    enemyHeight = 6
@@ -30,17 +31,25 @@ function enemy.spawn(dt)
    local enemyX = 1 + (random(screenWidth) - enemyWidth - 1)
    local enemyY = 1 + (random(screenHeight) - enemyHeight - 1)
    local enemyHealth = 255
-   local enemyMoveSound = 0
-   local enemyDieSound = 0
+   local enemyMoveSound = nil
+   local enemyDieSound = nil
    if soundAvailable then
-      enemyMoveSound = Move:clone()
+      enemyMoveSound = sf3:clone()
       audio.randomizePitch(enemyMoveSound)
-      enemyDieSound = Die:clone()
+      enemyDieSound = sf4:clone()
       audio.randomizePitch(enemyDieSound)
    end
    table.insert(enemies, {enemyX, enemyY, enemyHealth, enemyMoveSound, enemyDieSound})
    if soundAvailable and soundOn then audio.playEffect(enemies[table.getn(enemies)][4]) end
    spawnCounter = playerY
+end
+
+function enemy.silence()
+   for i = 1, table.getn(enemies) do
+      audio.stopEffect(enemies[i][4])
+      enemies[i][4] = nil
+      enemies[i][5] = nil
+   end
 end
 
 function enemy.clear()
@@ -57,6 +66,7 @@ function enemy.clear()
       for i = 1, getn(enemiesToRemove) do
          if soundAvailable and soundOn then
             audio.playEffect(enemies[i][5])
+            audio.stopEffect(enemies[i][4])
          end
          remove(enemies, enemiesToRemove[i])
       end
