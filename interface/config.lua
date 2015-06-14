@@ -1,8 +1,12 @@
 config = {}
 
 function config.load()
-   if love.filesystem.exists("config.cfg") then
-      for line in love.filesystem.lines("config.cfg") do
+   if love.filesystem.isFused() then
+      local dir = love.filesystem.getSourceBaseDirectory()
+      love.filesystem.mount(dir, "ascension")
+   end
+   if love.filesystem.exists("ascension/config.cfg") then
+      for line in love.filesystem.lines("ascension/config.cfg") do
          if string.find(line, "resolution") then
             defaultWidth, defaultHeight = string.match(line, "(%d+)%D+(%d+)")
             if defaultWidth / defaultHeight ~= 64 / 48 then
@@ -21,5 +25,12 @@ function config.load()
             elseif (string.find(line, "on") or string.find(line, "true")) then soundOn = true else soundOn = false end
          end
       end
+   else
+      defaultWidth = 800
+      defaultHeight = 600
+      musicOn = true
+      musicVolume = 0.75
+      soundOn = true
+      soundVolume = 0.75
    end
 end
