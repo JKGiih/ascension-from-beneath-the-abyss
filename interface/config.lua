@@ -5,8 +5,19 @@ function config.load()
       local dir = love.filesystem.getSourceBaseDirectory()
       love.filesystem.mount(dir, "ascension")
    end
+   if love.filesystem.exists("ascension/icon.png") then
+      love.window.setIcon(love.image.newImageData("ascension/icon.png"))
+   elseif love.filesystem.exists("icon.png") then
+      love.window.setIcon(love.image.newImageData("icon.png"))
+   end
+   local configPath = nil
    if love.filesystem.exists("ascension/config.cfg") then
-      for line in love.filesystem.lines("ascension/config.cfg") do
+      configPath = "ascension/config.cfg"
+   elseif love.filesystem.exists("config.cfg") then
+      configPath = "config.cfg"
+   end
+   if configPath then
+      for line in love.filesystem.lines(configPath) do
          if string.find(line, "resolution") then
             defaultWidth, defaultHeight = string.match(line, "(%d+)%D+(%d+)")
             if defaultWidth / defaultHeight ~= 64 / 48 then
