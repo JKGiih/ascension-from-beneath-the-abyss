@@ -4,7 +4,7 @@ function enemy.initialize()
    enemies = {}
    enemyWidth = 6
    enemyHeight = 6
-   spawnCounter = 1
+   spawnCounter = 10
 end    
 
 function enemy.move(dt)
@@ -40,7 +40,7 @@ function enemy.spawn(dt)
    end
    table.insert(enemies, {enemyX, enemyY, enemyHealth, enemyMoveSound, enemyDieSound})
    if soundAvailable and soundOn then audio.playEffect(enemies[table.getn(enemies)][4]) end
-   spawnCounter = 1
+   spawnCounter = 10
 end
 
 function enemy.clear()
@@ -63,8 +63,41 @@ function enemy.clear()
    end
 end
 
+function enemy.drainHealth(dt)
+   for i = 1, table.getn(enemies) do
+      if enemies[i][1] + enemyWidth / 2 > playerX + playerWidth / 2 then
+         if enemies[i][1] + enemyWidth / 2 - playerX + playerWidth / 2 < screenWidth / 2 - 4 then
+            enemy.incrementHealth(i, dt)
+            player.decrementHealth(dt)
+         else
+            enemy.decrementHealth(i, dt)
+            player.incrementHealth(dt)
+         end
+      else
+         if playerX + playerWidth / 2 - enemies[i][1] + enemyWidth / 2 < screenWidth / 2 - 4 then
+            enemy.incrementHealth(i, dt)
+            player.decrementHealth(dt)
+         else
+            enemy.decrementHealth(i, dt)
+            player.incrementHealth(dt)
+         end
+      end
+   end
+end
+
+function enemy.incrementHealth(e, dt)
+   enemies[e][3] = enemies[e][3] + dt * 10
+   if enemies[e][3] > 255 then enemies[e][3] = 255 end 
+end
+
+function enemy.decrementHealth(e, dt)
+   enemies[e][3] = enemies[e][3] - dt * 10
+   if enemies[e][3] < 0 then enemies[e][3] = 0 end 
+end
+
 function enemy.update(dt)
    enemy.move(dt)
+   enemy.drainHealth(dt)
    enemy.clear()
    if spawnCounter <= 0 then
       enemy.spawn(dt)
@@ -81,7 +114,7 @@ function enemy.draw()
    local rectangle = love.graphics.rectangle
    local setColor = love.graphics.setColor
    for i = 1, table.getn(enemies) do
-      setColor(255, 0, 0, 255)
+      setColor(enemies[i][3], 0, 0, 255)
       rectangle("fill", (lockToGrid(enemies[i][1]) + widescreenOffset) * scale, lockToGrid(enemies[i][2]) * scale, scale, scale)
    end
 end

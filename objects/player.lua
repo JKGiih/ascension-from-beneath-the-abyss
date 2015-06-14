@@ -8,9 +8,19 @@ function player.initialize()
       playerY = screenHeight - playerHeight
    else
       playerY = 0
-      health = 255
+      playerHealth = 255
    end
 end    
+
+function player.incrementHealth(dt)
+   playerHealth = playerHealth + dt * 10
+   if playerHealth > 255 then playerHealth = 255 end
+end
+
+function player.decrementHealth(dt)
+   playerHealth = playerHealth - dt * 5
+   if playerHealth < 0 then playerHealth = 0 end 
+end
 
 function player.update(dt)
    if state == "splash" then
@@ -45,6 +55,10 @@ function player.update(dt)
       end
       if isDown("down") or isDown("s") or verticalDirection == "down" then
          playerY = playerY + dt
+         player.incrementHealth(dt)
+         for i = 1, table.getn(enemies) do
+            enemy.decrementHealth(i, dt)
+         end
       end
       if playerX < 2 then playerX = 2 end
       if playerX > screenWidth - playerWidth - 2 then
@@ -59,8 +73,8 @@ function player.update(dt)
          playerY = screenHeight - playerHeight
       end
       depth = 255 - 5 * playerY^1.45
-      if health <= 0 then
-         health = 0
+      if playerHealth <= 0 then
+         playerHealth = 0
          gameover.initialize()
          state = "gameover"
       end 

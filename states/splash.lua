@@ -3,7 +3,6 @@ splash = {}
 function splash.initialize()
    player.initialize()
    enemy.initialize()
-   health = 255
    depth = 0
    alpha = 1
 end
