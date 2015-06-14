@@ -50,10 +50,10 @@ function player.update(dt)
          end
       end
       if isDown("left") or isDown("a") or horizontalDirection == "left" then
-         playerX = playerX - dt * 1
+         playerX = playerX - dt * 10
       end
       if isDown("right") or isDown("d") or horizontalDirection == "right" then
-         playerX = playerX + dt * 1
+         playerX = playerX + dt * 10
       end
       if isDown("up") or isDown("w") or verticalDirection == "up" then
          playerY = playerY - dt * (playerY / screenHeight)^2

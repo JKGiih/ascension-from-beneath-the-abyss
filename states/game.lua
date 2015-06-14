@@ -17,13 +17,15 @@ function game.draw()
    local setColor = love.graphics.setColor
    local rectangle = love.graphics.rectangle
    local widescreenOffset = widescreenOffset
+   local playerOffset = playerX + playerWidth / 2 - screenWidth / 2
+   local lockToGrid = graphics.lockToGrid
    for i = 1, 64 do
       for j = 1, 48 do
          c = depth - depth % 1
-         if i < 32 then
-            c = c + (i^2 / j) / (64 / 48)
-         else
-            c = c + ((64 - i)^2 / j) / (64 / 48)
+         if i + playerOffset < 32 and i + playerOffset > 0 then
+            c = c + ((i + playerOffset)^2 / j) / (64 / 48)
+         elseif i + playerOffset > 0 and i + playerOffset < screenWidth then 
+            c = c + ((64 - i - playerOffset)^2 / j) / (64 / 48)
          end
          if c > 250 then c = 250 elseif c < 0 then c = 0 end
          c = c + random(5)

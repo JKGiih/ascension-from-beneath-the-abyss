@@ -121,8 +121,12 @@ function enemy.draw()
             local c = random(25)
             local offsetX = random(9) - 5
             local offsetY = random(13) - 7
-            setColor(enemies[n][3], c, c, a)
-            rectangle("fill", (lockToGrid(enemies[n][1]) + i - 1 + offsetX+ widescreenOffset) * scale, (lockToGrid(enemies[n][2]) + j - 1 + offsetY) * scale, scale, scale)
+            local x = lockToGrid(enemies[n][1] + i - 1 + offsetX + widescreenOffset)
+            local y = lockToGrid(enemies[n][2] + j - 1 + offsetY)
+            if x >= widescreenOffset and x < screenWidth + widescreenOffset and y >= 0 and y < screenHeight then
+               setColor(enemies[n][3], c, c, a)
+               rectangle("fill", x * scale, y * scale, scale, scale)
+            end
          end
       end 
    end
