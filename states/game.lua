@@ -36,12 +36,17 @@ function game.draw()
       end
    end
    enemy.draw()
+   if paused then
+      love.graphics.setFont(font2)
+      setColor(128, 128, 128, 64)
+      love.graphics.print("paused", (widescreenOffset + 21) * scale, 19 * scale)
+   end
 end
 
 function game.gamepadpressed(joystick, button)
    if button == "start" then
       paused = not paused
-      if audioAvailable and audioOn then
+      if soundAvailable and soundOn then
          audio.randomizePitch(sf1)
          if paused then audio.pauseEffect(sf1) else audio.resumeEffect(sf1) end
       end
@@ -53,6 +58,7 @@ function game.gamepadpressed(joystick, button)
       if soundAvailable and soundOn then
          audio.randomizePitch(sf1)
          audio.playEffect(sf1)
+         if paused then audio.pauseEffect(sf1) end
       end
    end
 end
@@ -74,7 +80,7 @@ function game.keypressed(key)
       graphics.toggleFullscreen()
    elseif key == " " then
       paused = not paused
-      if audioAvailable and audioOn then
+      if soundAvailable and soundOn then
          if paused then audio.pauseEffect(sf1) else audio.resumeEffect(sf1) end
       end
    elseif key == "escape" and not paused then
@@ -83,6 +89,7 @@ function game.keypressed(key)
    elseif (key == "left" or key == "right" or key == "up" or key == "down" or key == "a" or key == "d" or key == "w" or key == "s") and soundAvailable and soundOn then
       audio.randomizePitch(sf1)
       audio.playEffect(sf1)
+      if paused then audio.pauseEffect(sf1) end
    end
 end
 
